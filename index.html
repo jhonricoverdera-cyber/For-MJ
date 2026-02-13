@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise 💖</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff5f9e, #ffc1e3);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* CARD STYLE */
+.card-wrapper {
+    perspective: 1000px;
+}
+
+.card {
+    width: 350px;
+    height: 220px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+.card.open {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-front {
+    background: white;
+    color: #ff3f8e;
+}
+
+.card-back {
+    background: #fff0f6;
+    transform: rotateY(180deg);
+}
+
+/* BUTTONS */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#nextBtn {
+    background-color: #ff3f8e;
+    color: white;
+}
+
+#yesBtn {
+    background-color: #ff3f8e;
+    color: white;
+}
+
+#noBtn {
+    background-color: #555;
+    color: white;
+}
+
+#message {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #ff3f8e;
+    font-weight: bold;
+}
+
+img {
+    width: 200px;
+    margin-top: 10px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-wrapper">
+    <div class="card" id="card">
+
+        <!-- FRONT -->
+        <div class="card-front">
+            <h2>💌 To My Favotite Person</h2>
+            <button onclick="openCard()">Open Card</button>
+        </div>
+
+        <!-- BACK -->
+        <div class="card-back">
+
+            <!-- MESSAGE PART -->
+            <div id="messagePart">
+                <p style="margin:10px; font-size:18px;">
+                    Hi MJ!
+
+Happy Valentine’s Day! I hope you have a really good day today, filled with smiles, laughter, and all the little things that make you happy. I just want you to know that you mean a lot to me, and I’m really glad to have you in my life. You make everything brighter, and I always look forward to the moments we share together. I hope today reminds you how special you are, not just to me, but to everyone who’s lucky enough to know you.
+
+Have an amazing Valentine’s Day, and never forget that you’re appreciated, loved, and thought of every single day. I'm sorry if i can't take you to date today, cause i know that u are busy as well, and i dont have money to take you somewhere. This is all that i can afford right now, and dont worry babawi ako next week HAAHHAAH, adn i'm sorry if i can't still talk to you like the way i talk to to others, it's just my mind dont know how to act when im around you. But still im trying best to make interactions with you. Because i want to know more about you and have agood relationship with you, anyways that's all. HAPPY VALENTINES DAY MJ! LOVEYOUUPOOO 💕
+                </p>
+                <button id="nextBtn" onclick="showQuestion()">Next</button>
+            </div>
+
+            <!-- QUESTION PART (hidden at first) -->
+            <div id="questionPart" style="display:none;">
+                <h2>Can I be your Valentine? 💖</h2>
+                <button id="yesBtn">YES 💘</button>
+                <button id="noBtn">NO 😢</button>
+                <div id="finalMessage"></div>
+                <img id="loveImage" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+let noSize = 18;
+
+function openCard() {
+    document.getElementById("card").classList.add("open");
+}
+
+// Show the YES/NO question after clicking Next
+function showQuestion() {
+    document.getElementById("messagePart").style.display = "none";
+    document.getElementById("questionPart").style.display = "block";
+}
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const finalMessage = document.getElementById("finalMessage");
+const loveImage = document.getElementById("loveImage");
+
+yesBtn.addEventListener("click", function() {
+    finalMessage.innerHTML = "YAAYYY!! 💖🥰";
+    loveImage.style.display = "block";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+});
+
+noBtn.addEventListener("click", function() {
+    noSize -= 3;
+    noBtn.style.fontSize = noSize + "px";
+    noBtn.style.padding = (noSize/2) + "px";
+    
+    if (noSize <= 5) {
+        noBtn.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>
