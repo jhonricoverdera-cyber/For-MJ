@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Valentine Surprise 💖</title>
+
 <style>
 body {
     margin: 0;
@@ -23,7 +24,7 @@ body {
 
 .card {
     width: 350px;
-    height: 220px;
+    height: 250px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1s;
@@ -44,6 +45,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 20px;
 }
 
 .card-front {
@@ -54,6 +56,7 @@ body {
 .card-back {
     background: #fff0f6;
     transform: rotateY(180deg);
+    overflow: hidden;
 }
 
 /* BUTTONS */
@@ -84,15 +87,30 @@ button {
 
 #message {
     margin-top: 15px;
-    font-size: 18px;
+    font-size: 16px;
     color: #ff3f8e;
     font-weight: bold;
+    text-align: left;
 }
 
 img {
     width: 200px;
     margin-top: 10px;
     display: none;
+}
+
+/* CONFETTI HEARTS */
+.heartConfetti {
+    position: absolute;
+    color: #ff3f8e;
+    font-size: 20px;
+    animation: fall 3s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) scale(1); opacity:1; }
+    100% { transform: translateY(400px) scale(0.5); opacity:0; }
 }
 </style>
 </head>
@@ -104,7 +122,7 @@ img {
 
         <!-- FRONT -->
         <div class="card-front">
-            <h2>💌 To My Favotite Person</h2>
+            <h2>💌 A Special Card For You</h2>
             <button onclick="openCard()">Open Card</button>
         </div>
 
@@ -113,12 +131,10 @@ img {
 
             <!-- MESSAGE PART -->
             <div id="messagePart">
-                <p style="margin:10px; font-size:18px;">
-                    Hi MJ!
-
+                <p id="valentineMessage">
 Happy Valentine’s Day! I hope you have a really good day today, filled with smiles, laughter, and all the little things that make you happy. I just want you to know that you mean a lot to me, and I’m really glad to have you in my life. You make everything brighter, and I always look forward to the moments we share together. I hope today reminds you how special you are, not just to me, but to everyone who’s lucky enough to know you.
 
-Have an amazing Valentine’s Day, and never forget that you’re appreciated, loved, and thought of every single day. I'm sorry if i can't take you to date today, cause i know that u are busy as well, and i dont have money to take you somewhere. This is all that i can afford right now, and dont worry babawi ako next week HAAHHAAH, adn i'm sorry if i can't still talk to you like the way i talk to to others, it's just my mind dont know how to act when im around you. But still im trying best to make interactions with you. Because i want to know more about you and have agood relationship with you, anyways that's all. HAPPY VALENTINES DAY MJ! LOVEYOUUPOOO 💕
+Have an amazing Valentine’s Day, and never forget that you’re appreciated, loved, and thought of every single day. I'm sorry if I can't take you to a date today, cause I know that you are busy as well, and I don't have money to take you somewhere. This is all that I can afford right now, and don't worry babawi ako next week HAAHHAAH, and I'm sorry if I can't still talk to you like the way I talk to others, it's just my mind doesn't know how to act when I'm around you. But still I'm trying my best to make interactions with you. Because I want to know more about you and have a good relationship with you, anyways that's all. HAPPY VALENTINES DAY MJ! LOVEYOUUPOOO 💕
                 </p>
                 <button id="nextBtn" onclick="showQuestion()">Next</button>
             </div>
@@ -159,8 +175,10 @@ yesBtn.addEventListener("click", function() {
     loveImage.style.display = "block";
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
+    startConfetti();
 });
 
+// NO button shrink
 noBtn.addEventListener("click", function() {
     noSize -= 3;
     noBtn.style.fontSize = noSize + "px";
@@ -170,6 +188,22 @@ noBtn.addEventListener("click", function() {
         noBtn.style.display = "none";
     }
 });
+
+// CONFETTI HEARTS
+function startConfetti() {
+    for (let i=0; i<50; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heartConfetti";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (10 + Math.random() * 30) + "px";
+        heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+
+        // Remove hearts after animation
+        setTimeout(() => heart.remove(), 5000);
+    }
+}
 </script>
 
 </body>
