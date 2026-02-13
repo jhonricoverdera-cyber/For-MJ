@@ -24,7 +24,7 @@ body {
 
 .card {
     width: 380px;
-    height: 420px; /* taller to fit scrollable content */
+    height: 420px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1s;
@@ -63,11 +63,11 @@ body {
 /* Scrollable message container */
 #messagePart {
     overflow-y: auto;
-    max-height: 300px; /* adjust based on card size */
+    max-height: 300px;
     width: 100%;
     margin-bottom: 10px;
     text-align: left;
-    padding-right: 10px; /* room for scrollbar */
+    padding-right: 10px;
 }
 
 #messagePart::-webkit-scrollbar {
@@ -105,8 +105,8 @@ button {
     color: white;
 }
 
-#finalMessage {
-    margin-top: 15px;
+#finalMessage, #sideMessage {
+    margin-top: 10px;
     font-size: 18px;
     color: #ff3f8e;
     font-weight: bold;
@@ -131,6 +131,13 @@ img {
 @keyframes fall {
     0% { transform: translateY(0) scale(1); opacity:1; }
     100% { transform: translateY(400px) scale(0.5); opacity:0; }
+}
+
+/* SAD GIF for NO clicks */
+#sadGif {
+    width: 150px;
+    display: none;
+    margin-top: 10px;
 }
 </style>
 </head>
@@ -164,8 +171,10 @@ Have an amazing Valentine’s Day, and never forget that you’re appreciated, l
                 <h2>Can I be your Valentine? 💖</h2>
                 <button id="yesBtn">YES 💘</button>
                 <button id="noBtn">NO 😢</button>
+                <div id="sideMessage"></div>
                 <div id="finalMessage"></div>
                 <img id="loveImage" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+                <img id="sadGif" src="https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif">
             </div>
 
         </div>
@@ -174,12 +183,15 @@ Have an amazing Valentine’s Day, and never forget that you’re appreciated, l
 
 <script>
 let noSize = 18;
+let noClickCount = 0;
+const noMessages = ["WHY SAY NO?", "PLEASE", "PRETTY PLEASE"];
 
+// Open card
 function openCard() {
     document.getElementById("card").classList.add("open");
 }
 
-// Show the YES/NO question after clicking Next
+// Show question after message
 function showQuestion() {
     document.getElementById("messagePart").style.display = "none";
     document.getElementById("questionPart").style.display = "block";
@@ -188,24 +200,38 @@ function showQuestion() {
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const finalMessage = document.getElementById("finalMessage");
+const sideMessage = document.getElementById("sideMessage");
 const loveImage = document.getElementById("loveImage");
+const sadGif = document.getElementById("sadGif");
 
+// YES button
 yesBtn.addEventListener("click", function() {
     finalMessage.innerHTML = "YAAYYY!! 💖🥰";
     loveImage.style.display = "block";
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
+    sideMessage.innerHTML = "";
+    sadGif.style.display = "none";
     startConfetti();
 });
 
-// NO button shrink
+// NO button
 noBtn.addEventListener("click", function() {
+    // Shrink button
     noSize -= 3;
     noBtn.style.fontSize = noSize + "px";
     noBtn.style.padding = (noSize/2) + "px";
-    
+
+    // Show sad GIF and side message
+    sadGif.style.display = "block";
+    sideMessage.innerHTML = noMessages[noClickCount] || "";
+    noClickCount++;
+
+    // If button disappears
     if (noSize <= 5) {
         noBtn.style.display = "none";
+        sideMessage.innerHTML = "FINE, YOU CAN'T SAY NO 😢";
+        sadGif.style.display = "block";
     }
 });
 
@@ -219,8 +245,6 @@ function startConfetti() {
         heart.style.fontSize = (10 + Math.random() * 30) + "px";
         heart.style.animationDuration = (2 + Math.random() * 3) + "s";
         document.body.appendChild(heart);
-
-        // Remove hearts after animation
         setTimeout(() => heart.remove(), 5000);
     }
 }
@@ -228,3 +252,4 @@ function startConfetti() {
 
 </body>
 </html>
+
