@@ -1,155 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Valentine Surprise 💖</title>
-
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ff5f9e, #ffc1e3);
-    font-family: Arial, sans-serif;
-    text-align: center;
-    overflow: hidden;
-}
-
-/* CARD STYLE */
-.card-wrapper {
-    perspective: 1000px;
-}
-
-.card {
-    width: 380px;
-    height: 420px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 1s;
-}
-
-.card.open {
-    transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.card-front {
-    background: white;
-    color: #ff3f8e;
-}
-
-.card-back {
-    background: #fff0f6;
-    transform: rotateY(180deg);
-    overflow: hidden;
-    flex-direction: column;
-}
-
-/* Scrollable message container */
-#messagePart {
-    overflow-y: auto;
-    max-height: 300px;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: left;
-    padding-right: 10px;
-}
-
-#messagePart::-webkit-scrollbar {
-    width: 6px;
-}
-
-#messagePart::-webkit-scrollbar-thumb {
-    background: #ff3f8e;
-    border-radius: 3px;
-}
-
-/* BUTTONS */
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#nextBtn {
-    background-color: #ff3f8e;
-    color: white;
-}
-
-#yesBtn {
-    background-color: #ff3f8e;
-    color: white;
-}
-
-#noBtn {
-    background-color: #555;
-    color: white;
-}
-
-#finalMessage, #sideMessage {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #ff3f8e;
-    font-weight: bold;
-    text-align: center;
-}
-
-img {
-    width: 200px;
-    margin-top: 10px;
-    display: none;
-}
-
-/* CONFETTI HEARTS */
-.heartConfetti {
-    position: absolute;
-    color: #ff3f8e;
-    font-size: 20px;
-    animation: fall 3s linear forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    0% { transform: translateY(0) scale(1); opacity:1; }
-    100% { transform: translateY(400px) scale(0.5); opacity:0; }
-}
-
-/* SAD GIF for NO clicks */
-#sadGif {
-    width: 150px;
-    display: none;
-    margin-top: 10px;
-}
-</style>
-</head>
-
 <body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" autoplay loop>
+    <source src="https://soundcloud.com/penguinpiano/love-wave-to-earth-piano" type="audio/mpeg">
+</audio>
 
 <div class="card-wrapper">
     <div class="card" id="card">
 
         <!-- FRONT -->
         <div class="card-front">
-            <h2>💌 A Special Card For You</h2>
+            <h2>💌 To MY Favorite Person</h2>
             <button onclick="openCard()">Open Card</button>
         </div>
 
@@ -174,8 +35,7 @@ Have an amazing Valentine’s Day, and never forget that you’re appreciated, l
                 <div id="sideMessage"></div>
                 <div id="finalMessage"></div>
                 <img id="loveImage" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
-                <<img id="sadGif" src="https://media.giphy.com/media/9Y5BbDSkSTiY8/giphy.gif">
->
+                <img id="sadGif" src="https://media.giphy.com/media/9Y5BbDSkSTiY8/giphy.gif">
             </div>
 
         </div>
@@ -183,6 +43,10 @@ Have an amazing Valentine’s Day, and never forget that you’re appreciated, l
 </div>
 
 <script>
+// set volume
+const music = document.getElementById("bgMusic");
+music.volume = 0.2; // adjust between 0 and 1
+
 let noSize = 18;
 let noClickCount = 0;
 const noMessages = ["WHY SAY NO?", "PLEASE", "PRETTY PLEASE"];
@@ -190,6 +54,7 @@ const noMessages = ["WHY SAY NO?", "PLEASE", "PRETTY PLEASE"];
 // Open card
 function openCard() {
     document.getElementById("card").classList.add("open");
+    music.play(); // play music when card opens
 }
 
 // Show question after message
@@ -252,5 +117,3 @@ function startConfetti() {
 </script>
 
 </body>
-</html>
-
